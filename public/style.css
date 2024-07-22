@@ -1,0 +1,105 @@
+body {
+  font-family: Arial, sans-serif;
+  margin: 20px;
+}
+
+h1 {
+  color: #333;
+  margin-bottom: 10px;
+}
+
+form {
+  margin-top: 20px;
+}
+
+label {
+  display: block;
+  margin-bottom: 10px;
+}
+
+input[type="text"], textarea {
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 20px;
+  border: 1px solid #ccc;
+}
+
+input[type="submit"] {
+  background-color: #4CAF50;
+  color: #fff;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+input[type="submit"]:hover {
+  background-color: #3e8e41;
+}
+
+ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+li {
+  margin-bottom: 10px;
+}
+
+a {
+  text-decoration: none;
+  color: #337ab7;
+}
+
+a:hover {
+  color: #23527c;
+}
+.blog-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 20px 0;
+  font-size: 18px;
+  text-align: left;
+}
+
+.blog-table th, .blog-table td {
+  padding: 12px 15px;
+}
+
+.blog-table thead tr {
+  background-color: #009879;
+  color: #ffffff;
+  text-align: left;
+}
+
+.blog-table tbody tr {
+  border-bottom: 1px solid #dddddd;
+}
+
+.blog-table tbody tr:nth-of-type(even) {
+  background-color: #f3f3f3;
+}
+
+.blog-table tbody tr:last-of-type {
+  border-bottom: 2px solid #009879;
+}
+
+.blog-table tbody tr:hover {
+  background-color: #f1f1f1;
+}
+
+.add-btn {
+  display: inline-block;
+  padding: 10px 20px;
+  margin: 20px 0;
+  color: #ffffff;
+  background-color: #009879;
+  text-decoration: none;
+  border-radius: 5px;
+  text-align: center;
+}
+
+.add-btn:hover {
+  background-color: #007f63;
+}
