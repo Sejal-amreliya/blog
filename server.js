@@ -4,6 +4,7 @@ const path = require('path');
 const { body, validationResult } = require('express-validator');
 const sanitize = require('./utils/sanitize');
 const postService = require('./services/postService');
+const postRouter = require('./routes/postRoutes'); // Import the router
 
 const app = express();
 const PORT = process.env.PORT || 3000;
@@ -56,6 +57,7 @@ app.post('/api/posts', upload.single('image'), async (req, res) => {
     res.status(500).json({ message: 'Internal Server Error' });
   }
 });
+app.use('/', postRouter); 
 
 app.listen(PORT, () => {
   console.log(`Server is running on port ${PORT}`);
