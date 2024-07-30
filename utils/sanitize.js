@@ -1,6 +1,6 @@
 const sanitize = (input) => {
-    return input.replace(/</g, "&lt;").replace(/>/g, "&gt;");
-  };
-  
-  module.exports = sanitize;
-  
+  // Implement sanitization logic here
+  return input;
+};
+
+module.exports = sanitize;

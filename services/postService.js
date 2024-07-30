@@ -1,15 +1,14 @@
 const db = require('../models');
 
 const createPost = async (post) => {
-    try {
-      const newPost = await db.posts.create(post);
-      return newPost;
-    } catch (error) {
-      console.error('Error creating post:', error);
-      throw error;
-    }
-  };
-  
+  try {
+    const newPost = await db.posts.create(post);
+    return newPost;
+  } catch (error) {
+    console.error('Error creating post:', error);
+    throw error;
+  }
+};
 
 const getAllPosts = async () => {
   return await db.posts.findAll();

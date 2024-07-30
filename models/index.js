@@ -9,7 +9,6 @@ const sequelize = new Sequelize(config.database, config.username, config.passwor
 const db = {};
 db.Sequelize = Sequelize;
 db.sequelize = sequelize;
-
 db.posts = require('./post')(sequelize, Sequelize);
 
 module.exports = db;
