@@ -1,8 +1,10 @@
+// controllers/postController.js
 const multer = require('multer');
 const path = require('path');
 const { validationResult } = require('express-validator');
 const sanitize = require('../utils/sanitize');
 const postService = require('../services/postService');
+const AppError = require('../utils/errors');
 
 const storage = multer.diskStorage({
   destination: (req, file, cb) => {
@@ -15,7 +17,7 @@ const storage = multer.diskStorage({
 
 const upload = multer({
   storage: storage,
-  limits: { fileSize: 5000000 }, // 1MB limit
+  limits: { fileSize: 5000000 }, // 5MB limit
   fileFilter: (req, file, cb) => {
     const filetypes = /jpeg|jpg|png|gif/;
     const mimetype = filetypes.test(file.mimetype);
@@ -24,7 +26,7 @@ const upload = multer({
     if (mimetype && extname) {
       return cb(null, true);
     } else {
-      cb(new Error('Only images are allowed'));
+      cb(new AppError('Only images are allowed', 400));
     }
   },
 }).single('image');
@@ -40,14 +42,15 @@ const createPost = async (req, res, next) => {
 
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
-      return res.status(400).json({
-        errors: errors.array().map(err => ({ [err.param]: err.msg }))
-      });
+      throw new AppError(
+        errors.array().map(err => ({ [err.param]: err.msg })).join(', '),
+        400
+      );
     }
 
     const { title, content } = req.body;
     if (!title || !content) {
-      return res.status(400).json({ message: 'Title and content are required.' });
+      throw new AppError('Title and content are required.', 400);
     }
 
     const sanitizedTitle = sanitize(title);
@@ -61,8 +64,7 @@ const createPost = async (req, res, next) => {
     const newPost = await postService.createPost(post);
     res.status(201).json(newPost);
   } catch (error) {
-    console.error('Error:', error);
-    res.status(500).json({ message: 'Internal Server Error' });
+    next(error);
   }
 };
 
@@ -71,21 +73,16 @@ const getAllPosts = async (req, res, next) => {
     const posts = await postService.getAllPosts();
     res.status(200).json(posts);
   } catch (error) {
-    console.error('Service error:', error);
-    res.status(500).json({ message: 'Internal Server Error' });
+    next(error);
   }
 };
 
 const getPostById = async (req, res, next) => {
   try {
     const post = await postService.getPostById(req.params.id);
-    if (!post) {
-      return res.status(404).json({ message: 'Post not found' });
-    }
     res.status(200).json(post);
   } catch (error) {
-    console.error('Service error:', error);
-    res.status(500).json({ message: 'Internal Server Error' });
+    next(error);
   }
 };
 

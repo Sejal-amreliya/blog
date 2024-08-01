@@ -10,5 +10,7 @@ const db = {};
 db.Sequelize = Sequelize;
 db.sequelize = sequelize;
 db.posts = require('./post')(sequelize, Sequelize);
+db.users = require('./user')(sequelize, Sequelize); // Add this line
 
 module.exports = db;
+
